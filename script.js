@@ -40,7 +40,6 @@ function playRound(pS, cS) {
     }
     score.textContent = playerScore + " - " + computerScore;
     if(playerScore == 5 || computerScore == 5) {
-        console.log("true");
         endgame();
     }
 }
@@ -69,22 +68,25 @@ function game() {
     }
 }
 var pause = false;
-if (!pause) {
+
     const rock = document.querySelector('#rock');
     rock.addEventListener('click', () => {
-        playRound('Rock', computerPlay());
+        if(!pause)
+            playRound('Rock', computerPlay());
     })
 
     const paper = document.querySelector('#paper');
     paper.addEventListener('click', () => {
-        playRound('Paper', computerPlay());
+        if(!pause)
+            playRound('Paper', computerPlay());
     })
 
     const scissors = document.querySelector('#scissors');
     scissors.addEventListener('click', () => {
-        playRound('Scissors', computerPlay());
+        if(!pause)
+            playRound('Scissors', computerPlay());
     })
-}
+
 
 
 
@@ -96,12 +98,12 @@ function endgame() {
         results.textContent = "Oh no! You lost to the computer."
     }
     pause = true;
-    console.log(pause);
+    addreset();
 }
 
 
-if(pause) {
-const reset = document.querySelector('.reset');
+function addreset() {
+    const reset = document.querySelector('.reset');
     const resetbtn = document.createElement('button');
     resetbtn.classList.add('.resetbtn');
     reset.appendChild(resetbtn);
@@ -112,6 +114,7 @@ const reset = document.querySelector('.reset');
         playerScore = 0;
         computerScore = 0;
         score.textContent = playerScore + " - " + computerScore;
+        reset.removeChild(resetbtn);
         pause = false;
     })
 }
